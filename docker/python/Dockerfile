@@ -28,7 +28,6 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 COPY . .
 
-EXPOSE 8000
 
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
