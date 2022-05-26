@@ -13,6 +13,11 @@ alembic = "^1.7.7"
 python-dotenv = "^0.20.0"
 asyncpg = "^0.25.0"
 uvicorn = "^0.17.6"
+passlib = "^1.7.4"
+fastapi-jwt-auth = "^0.5.0"
+greenlet = "^1.1.2"
+email-validator = "^1.2.1"
+bcrypt = "^3.2.2"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^22.3.0", allow-prereleases = true}

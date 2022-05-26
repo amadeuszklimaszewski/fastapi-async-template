@@ -1,3 +1,4 @@
+from sqlmodel import SQLModel
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.asyncio import create_async_engine
@@ -14,7 +15,7 @@ connect_args = {"check_same_thread": False}
 
 
 engine = create_async_engine(
-    settings.postgres_url, echo=True, future=True, pool_size=POOL_SIZE, max_overflow=64
+    settings.postgres_url, echo=False, future=True, pool_size=POOL_SIZE, max_overflow=64
 )
 
 async_session = sessionmaker(
@@ -24,8 +25,6 @@ async_session = sessionmaker(
     class_=AsyncSession,
     expire_on_commit=False,
 )
-
-Base = declarative_base()
 
 
 async def get_db() -> AsyncSession:
