@@ -1,6 +1,3 @@
-from shutil import ExecError
-
-
 class APIException(Exception):
     pass
 

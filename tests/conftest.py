@@ -6,7 +6,6 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlalchemy import event, create_engine
-from sqlalchemy.orm import sessionmaker
 from sqlmodel import SQLModel
 
 from main import app
