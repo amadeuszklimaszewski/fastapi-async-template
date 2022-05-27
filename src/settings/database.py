@@ -8,16 +8,13 @@ class DatabaseSettings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_PORT: int
     TEST_MODE: bool = False
+    ASYNC_MODE: bool = True
 
     @property
     def postgres_url(self) -> str:
-        database_name = (
-            self.POSTGRES_DATABASE
-            if not self.TEST_MODE
-            else f"test{self.POSTGRES_DATABASE}"
-        )
-
+        database_name = self.POSTGRES_DATABASE if not self.TEST_MODE else "test"
+        driver = "postgresql+asyncpg" if self.ASYNC_MODE else "postgresql"
         return (
-            f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@"
+            f"{driver}://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@"
             f"{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{database_name}"
         )
