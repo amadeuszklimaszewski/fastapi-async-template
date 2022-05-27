@@ -1,4 +1,5 @@
 import datetime as dt
+from dateutil.relativedelta import relativedelta
 from typing import Any
 from pydantic import validator, validate_email as validate_email_pd
 from sqlmodel import SQLModel, Field, Column, String
@@ -30,6 +31,12 @@ class LoginSchema(SQLModel):
 class RegisterSchema(UserBase):
     password: str = Field(..., min_length=8)
     password2: str = Field(..., min_length=8)
+
+    @validator("birthday")
+    def validate_birthday(cls, birthday: dt.datetime) -> dt.datetime:
+        if relativedelta(dt.date.today(), birthday).years <= 18:
+            raise ValueError("You must be at least 18 years old")
+        return birthday
 
     @validator("email")
     def validate_email(cls, email: str) -> str:

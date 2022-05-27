@@ -3,6 +3,7 @@ from fastapi import Depends, status
 from fastapi.routing import APIRouter
 from fastapi_jwt_auth import AuthJWT
 
+from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from src.apps.users.models import User, UserOutput, LoginSchema, RegisterSchema
@@ -58,7 +59,8 @@ async def login_user(
     response_model=list[UserOutput],
 )
 async def get_users(session: AsyncSession = Depends(get_db)) -> list[UserOutput]:
-    return [UserOutput.from_orm(user) for user in session.query(User).all()]
+    result = await session.exec(select(User))
+    return [UserOutput.from_orm(user) for user in result.all()]
 
 
 @user_router.get(
@@ -70,7 +72,7 @@ async def get_users(session: AsyncSession = Depends(get_db)) -> list[UserOutput]
 async def get_logged_user(
     request_user: User = Depends(authenticate_user),
 ) -> UserOutput:
-    return User.from_orm(request_user)
+    return UserOutput.from_orm(request_user)
 
 
 @user_router.get(
@@ -83,4 +85,5 @@ async def get_logged_user(
 async def get_user(
     user_id: UUID, session: AsyncSession = Depends(get_db)
 ) -> UserOutput:
-    return User.from_orm(await session.query(User).filter_by(id=user_id).first())
+    result = await session.exec(select(User).where(User.id == user_id))
+    return User.from_orm(result.first())

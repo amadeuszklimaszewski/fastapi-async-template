@@ -14,9 +14,10 @@ async def authenticate_user(
 ) -> User:
     auth_jwt.jwt_required()
     user = json.loads(auth_jwt.get_jwt_subject())
-    user = await session.exec(select(User).where(User.id == user["id"]).first())
+    result = await session.exec(select(User).where(User.id == user["id"]))
+    user = result.first()
 
     if user is None:
         raise InvalidCredentials("Invalid credentials provided.")
 
-    return
+    return user

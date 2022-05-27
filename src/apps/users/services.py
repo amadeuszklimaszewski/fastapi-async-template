@@ -9,7 +9,7 @@ from src.apps.users.models import (
 from src.apps.users.utils import pwd_context
 from src.core.exceptions import (
     AlreadyExists,
-    InvalidJWTUser,
+    InvalidCredentials,
 )
 
 
@@ -51,5 +51,5 @@ class UserService:
         result = await session.exec(select(User).where(User.email == email))
         user: User = result.first()
         if user is None or not pwd_context.verify(password, user.hashed_password):
-            raise InvalidJWTUser("No matches with given token")
+            raise InvalidCredentials("No matches with given token")
         return user

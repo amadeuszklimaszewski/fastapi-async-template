@@ -13,9 +13,5 @@ class AuthException(APIException):
     pass
 
 
-class InvalidCredentials(Exception):
-    pass
-
-
-class InvalidJWTUser(Exception):
+class InvalidCredentials(AuthException):
     pass
