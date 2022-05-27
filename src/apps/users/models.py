@@ -48,3 +48,7 @@ class RegisterSchema(UserBase):
         if password2 != values["password"]:
             raise ValueError("Passwords do not match")
         return password2
+
+
+class Test(TimeStampedUUIDModelBase, table=True):
+    pom: str

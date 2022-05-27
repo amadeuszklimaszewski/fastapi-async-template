@@ -7,11 +7,10 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from src.apps.users.models import User
+from src.settings.alembic import *
 from sqlmodel import SQLModel
 
 from src.settings import settings
-
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

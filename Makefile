@@ -10,6 +10,10 @@ up-dev:
 	docker-compose run --rm web bash -c "alembic upgrade head"
 	docker-compose up
 
+migrations:
+	docker-compose run --rm web bash -c "alembic revision --autogenerate"
+	docker-compose run --rm web bash -c "alembic upgrade head"
+	
 bash:
 	docker-compose exec web bash
 
