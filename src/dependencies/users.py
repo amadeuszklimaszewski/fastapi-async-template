@@ -1,7 +1,7 @@
 import json
 
 from fastapi import Depends
-from fastapi_jwt_auth import AuthJWT
+from fastapi_another_jwt_auth import AuthJWT
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from src.core.exceptions import InvalidCredentials

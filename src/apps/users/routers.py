@@ -1,7 +1,7 @@
 from uuid import UUID
 from fastapi import Depends, status
 from fastapi.routing import APIRouter
-from fastapi_jwt_auth import AuthJWT
+from fastapi_another_jwt_auth import AuthJWT
 
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
