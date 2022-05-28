@@ -14,7 +14,7 @@ FastAPI template to speed up the development process. SQLModel is used for defin
 2. Run in root directory:
 `$ make build-dev`
 3. Provide `AUTHJWT_SECRET_KEY` in .env file
-4. Run template: `make up-dev`
+4. Run template: `$ make up-dev`
 
 ## Migrations
 Register your models in `./src/settings/alembic.py` by importing your `models.py` file.  
