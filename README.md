@@ -10,7 +10,7 @@ FastAPI template to speed up the development process. SQLModel is used for defin
 
 ## Setup
 1. Clone repository:
-`$ git clone https://github.com/amadeuszklimaszewski/fastapi-async-template/`
+`$ git clone https://github.com/amadeuszklimaszewski/fastapi-async-template`
 2. Run in root directory:
 `$ make build-dev`
 3. Provide `AUTHJWT_SECRET_KEY` in .env file
@@ -25,3 +25,6 @@ Run `$ make migrations` to migrate.
 
 ## Makefile
 `Makefile` contains useful command aliases
+
+## Docs
+SwaggerUI docs available at `localhost:8000/docs`
