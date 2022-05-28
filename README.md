@@ -17,8 +17,8 @@ FastAPI template to speed up the development process. SQLModel is used for defin
 4. Run template: `make up-dev`
 
 ## Migrations
-* Register your models in `./src/settings/alembic.py` by importing your `models.py` file.
-* Run `$ make migrations` to migrate.
+Register your models in `./src/settings/alembic.py` by importing your `models.py` file.
+Run `$ make migrations` to migrate.
 
 ## Tests
 `$ make test`
