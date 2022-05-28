@@ -5,12 +5,12 @@ FastAPI template to speed up the development process. SQLModel is used for defin
 * FastAPI `0.78.0`
 * SQLModel `0.0.6`
 * Alembic `1.7.7`
-* Docker
 * PostgreSQL `14.2`
+* Docker
 
 ## Setup
 1. Clone repository:
-`$ git clone https://github.com/amadeuszklimaszewski/amigoapi/`
+`$ git clone https://github.com/amadeuszklimaszewski/fastapi-async-template/`
 2. Run in root directory:
 `$ make build-dev`
 3. Provide `AUTHJWT_SECRET_KEY` in .env file
