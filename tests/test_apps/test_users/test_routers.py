@@ -2,7 +2,7 @@ from fastapi import Response, status
 from httpx import AsyncClient
 import pytest
 import pytest_asyncio
-from fastapi_jwt_auth import AuthJWT
+from fastapi_another_jwt_auth import AuthJWT
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
