@@ -1,5 +1,5 @@
 # fastapi-async-template
-FastAPI template to speed up the development process. SQLModel is used for defining tables. Uses library `asyncpg` and async engine provided by SQLAlchemy. Docker creates a second database for testing purposes. Tests include `conftest.py` file with needed setup to run tests in an asynchronous manner.
+FastAPI template to speed up the development process. Uses library `asyncpg` and SQLAlchemy async engine. Docker creates a second database for testing purposes. Tests include `conftest.py` file with needed setup to run tests in an asynchronous manner.
 
 ## Tech stack
 * FastAPI `0.78.0`
