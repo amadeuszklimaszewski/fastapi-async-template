@@ -1,15 +1,11 @@
 import asyncio
 from logging.config import fileConfig
 
-# from sqlalchemy import engine_from_config
-from sqlalchemy.ext.asyncio import async_engine_from_config
-from sqlalchemy import pool
-
 from alembic import context
+from sqlalchemy import pool
+from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from src.settings.alembic import *
-from sqlmodel import SQLModel
-
+from src.adapters import orm
 from src.settings import settings
 
 settings.ASYNC_MODE = True
@@ -29,7 +25,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = SQLModel.metadata
+target_metadata = orm.mapper_registry.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

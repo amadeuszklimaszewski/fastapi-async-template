@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, Response, status
 
-from src.apps.users.models import User
 from src.dependencies.users import authenticate_user
-
+from src.models.user import User
 
 jwt_router = APIRouter(prefix="/token")
 
