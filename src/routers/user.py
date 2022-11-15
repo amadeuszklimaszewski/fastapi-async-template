@@ -3,7 +3,6 @@ from uuid import UUID
 from fastapi import Depends, status
 from fastapi.routing import APIRouter
 
-from src.models.user import User
 from src.schemas.user import RegisterSchema, UserOutputSchema
 from src.services.user import UserService
 
@@ -29,7 +28,7 @@ async def register_user(
     status_code=status.HTTP_200_OK,
     response_model=list[UserOutputSchema],
 )
-async def get_users() -> list[UserOutputSchema]:
+async def get_users():
     ...
 
 
@@ -39,5 +38,5 @@ async def get_users() -> list[UserOutputSchema]:
     status_code=status.HTTP_200_OK,
     response_model=UserOutputSchema,
 )
-async def get_user(user_id: UUID) -> UserOutputSchema:
+async def get_user(user_id: UUID):
     ...

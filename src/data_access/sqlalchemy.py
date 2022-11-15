@@ -19,6 +19,9 @@ class SQLAlchemyAsyncDataAccess(AbstractAsyncDataAccess[UUID, UUIDBaseModel], AB
     def _model(self) -> Type[UUIDBaseModel]:
         raise NotImplementedError
 
+    async def commit(self) -> None:
+        await self._async_session.commit()
+
     async def get(self, pk: UUID) -> UUIDBaseModel:
         result = (
             await self._async_session.scalars(
@@ -37,12 +40,18 @@ class SQLAlchemyAsyncDataAccess(AbstractAsyncDataAccess[UUID, UUIDBaseModel], AB
 
     async def persist(self, model: UUIDBaseModel) -> UUIDBaseModel:
         await self._async_session.add(model)
+        await self.commit()
+
         return model
 
     async def persist_many(self, models: list[UUIDBaseModel]) -> list[UUIDBaseModel]:
         await self._async_session.add_all(models)
+        await self.commit()
+
         return models
 
     async def delete(self, model: UUIDBaseModel) -> None:
         await self._async_session.delete(model)
+        await self.commit()
+
         return None
