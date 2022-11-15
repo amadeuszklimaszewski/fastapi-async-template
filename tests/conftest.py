@@ -1,17 +1,18 @@
-import pytest
-import pytest_asyncio
 import asyncio
 from asyncio import AbstractEventLoop
+
+import pytest
+import pytest_asyncio
 from httpx import AsyncClient
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
-from sqlmodel.ext.asyncio.session import AsyncSession
-from sqlalchemy import event, create_engine
+from sqlalchemy import create_engine, event
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlmodel import SQLModel
+from sqlmodel.ext.asyncio.session import AsyncSession
 
 from main import app
-from src.settings import Settings
-from src.database.connection import get_db
 from src.apps.users.models import User
+from src.database.connection import get_db
+from src.settings import Settings
 
 
 @pytest.fixture(scope="session")

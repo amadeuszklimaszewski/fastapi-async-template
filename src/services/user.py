@@ -1,16 +1,10 @@
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from src.apps.users.models import (
-    User,
-    UserOutput,
-    RegisterSchema,
-)
-from src.apps.users.utils import pwd_context
-from src.core.exceptions import (
-    AlreadyExists,
-    InvalidCredentials,
-)
+from src.core.exceptions import AlreadyExists, InvalidCredentials
+from src.models.user import User
+from src.schemas.user import RegisterSchema, UserOutputSchema
+from src.utils import pwd_context
 
 
 class UserService:
@@ -21,7 +15,7 @@ class UserService:
     @classmethod
     async def register_user(
         cls, schema: RegisterSchema, session: AsyncSession
-    ) -> UserOutput:
+    ) -> UserOutputSchema:
         user_data = schema.dict()
         user_data.pop("password2")
         user_data["hashed_password"] = await cls._hash_password(

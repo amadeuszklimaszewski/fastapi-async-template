@@ -1,12 +1,12 @@
-from fastapi import Response, status
-from httpx import AsyncClient
 import pytest
 import pytest_asyncio
+from fastapi import Response, status
 from fastapi_another_jwt_auth import AuthJWT
+from httpx import AsyncClient
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from src.apps.users.models import User, UserOutput, RegisterSchema
+from src.apps.users.models import RegisterSchema, User, UserOutput
 from src.apps.users.services import UserService
 
 

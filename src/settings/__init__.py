@@ -1,4 +1,5 @@
 from fastapi_another_jwt_auth import AuthJWT
+
 from src.settings.database import DatabaseSettings
 from src.settings.jwt import AuthJWTSettings
 
