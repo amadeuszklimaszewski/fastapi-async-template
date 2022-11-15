@@ -568,30 +568,6 @@ pymysql = ["pymysql (<1)", "pymysql"]
 sqlcipher = ["sqlcipher3-binary"]
 
 [[package]]
-name = "sqlalchemy2-stubs"
-version = "0.0.2a29"
-description = "Typing Stubs for SQLAlchemy 1.4"
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-typing-extensions = ">=3.7.4"
-
-[[package]]
-name = "sqlmodel"
-version = "0.0.6"
-description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
-category = "main"
-optional = false
-python-versions = ">=3.6.1,<4.0.0"
-
-[package.dependencies]
-pydantic = ">=1.8.2,<2.0.0"
-SQLAlchemy = ">=1.4.17,<1.5.0"
-sqlalchemy2-stubs = "*"
-
-[[package]]
 name = "starlette"
 version = "0.19.1"
 description = "The little ASGI library that shines."
@@ -640,7 +616,7 @@ standard = ["websockets (>=10.0)", "httptools (>=0.4.0)", "watchgod (>=0.6)", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "7930a74f8f5195968e8f47e136e3938fbd548c13364d414a0d68f455d9c6137a"
+content-hash = "0921bf6b5daeab0a0637f391e5d0dcfe032115c39fb32a9d3ab60147cae2b4c8"
 
 [metadata.files]
 alembic = []
@@ -849,11 +825,6 @@ six = [
 ]
 sniffio = []
 sqlalchemy = []
-sqlalchemy2-stubs = []
-sqlmodel = [
-    {file = "sqlmodel-0.0.6-py3-none-any.whl", hash = "sha256:c5fd8719e09da348cd32ce2a5b6a44f289d3029fa8f1c9818229b6f34f1201b4"},
-    {file = "sqlmodel-0.0.6.tar.gz", hash = "sha256:3b4f966b9671b24d85529d274e6c4dbc7753b468e35d2d6a40bd75cad1f66813"},
-]
 starlette = [
     {file = "starlette-0.19.1-py3-none-any.whl", hash = "sha256:5a60c5c2d051f3a8eb546136aa0c9399773a689595e099e0877704d5888279bf"},
     {file = "starlette-0.19.1.tar.gz", hash = "sha256:c6d21096774ecb9639acad41b86b7706e52ba3bf1dc13ea4ed9ad593d47e24c7"},

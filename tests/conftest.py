@@ -6,11 +6,9 @@ import pytest_asyncio
 from httpx import AsyncClient
 from sqlalchemy import create_engine, event
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
-from sqlmodel import SQLModel
-from sqlmodel.ext.asyncio.session import AsyncSession
+from sqlalchemy.ext.asyncio.session import AsyncSession
 
 from main import app
-from src.apps.users.models import User
 from src.database.connection import get_db
 from src.settings import Settings
 
@@ -27,12 +25,12 @@ def meta_migration():
     settings = Settings(ASYNC_MODE=False, TEST_MODE=True)
     sync_engine = create_engine(settings.postgres_url, echo=False)
 
-    SQLModel.metadata.drop_all(sync_engine)
-    SQLModel.metadata.create_all(sync_engine)
+    # SQLModel.metadata.drop_all(sync_engine)
+    # SQLModel.metadata.create_all(sync_engine)
 
     yield sync_engine
 
-    SQLModel.metadata.drop_all(sync_engine)
+    # SQLModel.metadata.drop_all(sync_engine)
 
 
 @pytest_asyncio.fixture(scope="session")
