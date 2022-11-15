@@ -1,7 +1,6 @@
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
-from sqlmodel.ext.asyncio.session import AsyncSession
-
+from sqlalchemy.ext.asyncio.session import AsyncSession
 from src.settings import settings
 
 DB_POOL_SIZE = 83

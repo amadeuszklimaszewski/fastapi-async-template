@@ -1,6 +1,5 @@
-from sqlmodel import select
-from sqlmodel.ext.asyncio.session import AsyncSession
-
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio.session import AsyncSession
 from src.core.exceptions import AlreadyExists, InvalidCredentials
 from src.models.user import User
 from src.schemas.user import RegisterSchema, UserOutputSchema

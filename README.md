@@ -3,8 +3,8 @@ FastAPI template to speed up the development process. SQLModel is used for defin
 
 ## Tech stack
 * FastAPI `0.78.0`
-* SQLModel `0.0.6`
-* Alembic `1.7.7`
+* SQLAlchemy `1.4.44`
+* Alembic `1.8.1`
 * PostgreSQL `14.2`
 * Docker
 
@@ -17,7 +17,6 @@ FastAPI template to speed up the development process. SQLModel is used for defin
 4. Run template: `$ make up-dev`
 
 ## Migrations
-Register your models in `./src/settings/alembic.py` by importing your `models.py` file.  
 Run `$ make migrations` to migrate.
 
 ## Tests
