@@ -1,14 +1,6 @@
-class APIException(Exception):
+class AlreadyExistsError(Exception):
     pass
 
 
-class AlreadyExists(APIException):
-    pass
-
-
-class AuthException(APIException):
-    pass
-
-
-class InvalidCredentials(AuthException):
+class DoesNotExistError(Exception):
     pass

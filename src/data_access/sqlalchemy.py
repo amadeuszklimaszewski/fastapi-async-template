@@ -5,8 +5,8 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.core.exceptions import DoesNotExistError
 from src.data_access.abstract import AbstractAsyncDataAccess
-from src.data_access.exceptions import DoesNotExistError
 from src.models.abstract import UUIDBaseModel
 
 
