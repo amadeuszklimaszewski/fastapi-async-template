@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from abc import ABC, abstractmethod
+
 from sqlalchemy import MetaData, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, registry

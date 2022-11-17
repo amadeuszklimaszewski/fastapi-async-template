@@ -1,19 +1,20 @@
-# from sqlalchemy.ext.asyncio.session import AsyncSession
-
+from src.data_access import UserAsyncDataAccess
 from src.models.user import User
 from src.schemas.user import RegisterSchema
 from src.utils import pwd_context
 
 
 class UserService:
+    def __init__(self, data_access: UserAsyncDataAccess) -> None:
+        self.data_access = data_access
+
     @classmethod
     async def _hash_password(cls, password: str) -> str:
         return pwd_context.hash(password)
 
-    @classmethod
-    async def register_user(cls, schema: RegisterSchema) -> User:
-        return User(**schema.dict())
+    async def register_user(self, schema: RegisterSchema) -> User:
+        new_user = User(**schema.dict())
+        return await self.data_access.persist(new_user)
 
-    @classmethod
-    async def authenticate(cls, email: str, password: str) -> User:
+    async def authenticate(self, email: str, password: str) -> User:
         ...

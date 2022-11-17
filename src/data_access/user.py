@@ -3,7 +3,7 @@ from src.data_access.sqlalchemy import SQLAlchemyAsyncDataAccess
 from src.models.user import User
 
 
-class UserDataAccess(SQLAlchemyAsyncDataAccess):
+class UserAsyncDataAccess(SQLAlchemyAsyncDataAccess):
     @property
     def _dao(self) -> UserDAO:
         return UserDAO
