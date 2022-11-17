@@ -6,9 +6,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.adapters.orm import SQLAlchemyDAO
-from src.core.exceptions import DoesNotExist
 from src.data_access import AbstractAsyncDataAccess
-from src.models.abstract import BaseUUIDModel
+from src.data_access.exceptions import DoesNotExist
+from src.models import BaseUUIDModel
 
 
 class SQLAlchemyAsyncDataAccess(
