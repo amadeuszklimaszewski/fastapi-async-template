@@ -1,9 +1,9 @@
 import datetime
 
-from src.models.abstract import UUIDBaseModel
+from src.models.abstract import BaseUUIDModel
 
 
-class User(UUIDBaseModel):
+class User(BaseUUIDModel):
     email: str
     password: str
     created_at: datetime.date

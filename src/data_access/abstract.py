@@ -20,7 +20,7 @@ class AbstractAsyncDataAccess(Generic[PK, DAO, Model], ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def _map_to_dao(self, model: Model) -> Type[DAO]:
+    def _map_to_dao(self, model: Model) -> DAO:
         raise NotImplementedError
 
     @abstractmethod
