@@ -6,7 +6,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, registry
 from sqlalchemy.sql import func
 
-from src.models.abstract import BaseUUIDModel
+from src.models import BaseUUIDModel
 
 metadata = MetaData()
 mapper_registry = registry(metadata=metadata)

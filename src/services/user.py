@@ -1,6 +1,6 @@
 from src.data_access import UserAsyncDataAccess
-from src.models.user import User
-from src.schemas.user import RegisterSchema
+from src.models import User
+from src.schemas import RegisterSchema
 from src.utils import pwd_context
 
 

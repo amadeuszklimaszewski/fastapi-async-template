@@ -1,6 +1,6 @@
 import datetime
 
-from src.models.abstract import BaseUUIDModel
+from src.models import BaseUUIDModel
 
 
 class User(BaseUUIDModel):

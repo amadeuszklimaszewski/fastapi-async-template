@@ -3,8 +3,8 @@ from uuid import UUID
 from fastapi import Depends, status
 from fastapi.routing import APIRouter
 
-from src.schemas.user import RegisterSchema, UserOutputSchema
-from src.services.user import UserService
+from src.schemas import RegisterSchema, UserOutputSchema
+from src.services import UserService
 
 user_router = APIRouter(prefix="/users")
 

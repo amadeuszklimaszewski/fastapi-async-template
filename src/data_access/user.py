@@ -1,5 +1,5 @@
 from src.adapters.orm import UserDAO
-from src.data_access.sqlalchemy import SQLAlchemyAsyncDataAccess
+from src.data_access import SQLAlchemyAsyncDataAccess
 from src.models.user import User
 
 

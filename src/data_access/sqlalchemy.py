@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.adapters.orm import SQLAlchemyDAO
 from src.core.exceptions import DoesNotExist
-from src.data_access.abstract import AbstractAsyncDataAccess
+from src.data_access import AbstractAsyncDataAccess
 from src.models.abstract import BaseUUIDModel
 
 
