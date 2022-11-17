@@ -3,7 +3,7 @@ FastAPI template to speed up the development process. Uses library `asyncpg` and
 
 ## Tech stack
 * FastAPI `0.87.0`
-* SQLAlchemy `1.4.44`
+* SQLAlchemy `2.0.0b3`
 * Alembic `1.8.1`
 * PostgreSQL `14.2`
 * Docker
