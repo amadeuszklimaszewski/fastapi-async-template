@@ -1,6 +1,6 @@
-class AlreadyExistsError(Exception):
+class AlreadyExists(Exception):
     pass
 
 
-class DoesNotExistError(Exception):
+class DoesNotExist(Exception):
     pass

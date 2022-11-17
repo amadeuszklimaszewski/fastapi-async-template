@@ -4,13 +4,23 @@ from typing import Generic, Type, TypeVar
 from pydantic import BaseModel
 
 PK = TypeVar("PK")
+DAO = TypeVar("DAO")
 Model = TypeVar("Model", bound=BaseModel)
 
 
-class AbstractAsyncDataAccess(Generic[PK, Model], ABC):
+class AbstractAsyncDataAccess(Generic[PK, DAO, Model], ABC):
     @property
     @abstractmethod
     def _model(self) -> Type[Model]:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def _dao(self) -> Type[DAO]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def _map_to_dao(self, model: Model) -> Type[DAO]:
         raise NotImplementedError
 
     @abstractmethod

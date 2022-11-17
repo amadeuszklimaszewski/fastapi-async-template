@@ -5,12 +5,15 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.core.exceptions import DoesNotExistError
+from src.core.exceptions import DoesNotExist
 from src.data_access.abstract import AbstractAsyncDataAccess
 from src.models.abstract import UUIDBaseModel
+from src.adapters.orm import BaseDAO
 
 
-class SQLAlchemyAsyncDataAccess(AbstractAsyncDataAccess[UUID, UUIDBaseModel], ABC):
+class SQLAlchemyAsyncDataAccess(
+    AbstractAsyncDataAccess[UUID, BaseDAO, UUIDBaseModel], ABC
+):
     def __init__(self, async_session: AsyncSession) -> None:
         self._async_session = async_session
 
@@ -19,39 +22,48 @@ class SQLAlchemyAsyncDataAccess(AbstractAsyncDataAccess[UUID, UUIDBaseModel], AB
     def _model(self) -> Type[UUIDBaseModel]:
         raise NotImplementedError
 
+    @property
+    @abstractmethod
+    def _dao(self) -> Type[BaseDAO]:
+        raise NotImplementedError
+
+    def _map_to_dao(self, model: UUIDBaseModel) -> Type[BaseDAO]:
+        return self._dao.from_model(model)
+
     async def commit(self) -> None:
         await self._async_session.commit()
 
     async def get(self, pk: UUID) -> UUIDBaseModel:
         result = (
             await self._async_session.scalars(
-                select(self._model).where(self._model.id == pk)
+                select(self._dao).where(self._dao.id == pk)
             )
         ).first()
         if not result:
-            raise DoesNotExistError(
+            raise DoesNotExist(
                 f"{self.__class__.__name__} could not find {self._model.__name__} with given PK - {pk}"
             )
-        return result
+        return self._model.from_orm(result)
 
-    # TODO implement get_many method, add support for where clause
-    async def get_many(self) -> list[UUIDBaseModel]:
-        ...
+    async def get_many(self, **kwargs) -> list[UUIDBaseModel]:
+        args = [getattr(self._dao, k) == v for k, v in kwargs.items()]
+        stmt = select(self._model).where(True, *args)
+        result = (await self._async_session.scalars(stmt)).all()
+        return [self._map_to_dao(model) for model in result]
 
     async def persist(self, model: UUIDBaseModel) -> UUIDBaseModel:
-        await self._async_session.add(model)
+        self._async_session.add(self._map_to_dao(model))
         await self.commit()
 
         return model
 
     async def persist_many(self, models: list[UUIDBaseModel]) -> list[UUIDBaseModel]:
-        await self._async_session.add_all(models)
+        self._async_session.add_all([self._map_to_dao(model) for model in models])
         await self.commit()
-
         return models
 
     async def delete(self, model: UUIDBaseModel) -> None:
-        await self._async_session.delete(model)
+        await self._async_session.delete(self._map_to_dao(model))
         await self.commit()
 
         return None
