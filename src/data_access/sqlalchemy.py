@@ -30,9 +30,6 @@ class SQLAlchemyAsyncDataAccess(
     def _map_to_dao(self, model: BaseUUIDModel) -> SQLAlchemyDAO:
         return self._dao.from_model(model)
 
-    async def _commit(self) -> None:
-        await self._async_session.commit()
-
     async def get(self, pk: UUID) -> BaseUUIDModel:
         result = (
             await self._async_session.scalars(
@@ -53,17 +50,12 @@ class SQLAlchemyAsyncDataAccess(
 
     async def persist(self, model: BaseUUIDModel) -> BaseUUIDModel:
         self._async_session.add(self._map_to_dao(model))
-        await self._commit()
-
         return model
 
     async def persist_many(self, models: list[BaseUUIDModel]) -> list[BaseUUIDModel]:
         self._async_session.add_all([self._map_to_dao(model) for model in models])
-        await self._commit()
         return models
 
     async def delete(self, model: BaseUUIDModel) -> None:
         await self._async_session.delete(self._map_to_dao(model))
-        await self._commit()
-
         return None

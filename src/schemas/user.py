@@ -1,12 +1,12 @@
 import datetime
-import uuid
+from uuid import UUID
 from typing import Any
 
 from pydantic import BaseModel, Field, validate_email, validator
 
 
 class UserOutputSchema(BaseModel):
-    id: uuid.UUID
+    id: UUID
     email: str
     created_at: datetime.date
     updated_at: datetime.date

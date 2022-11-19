@@ -24,3 +24,4 @@ async_session = sessionmaker(
 async def get_db() -> AsyncSession:
     async with async_session() as session:
         yield session
+        await session.commit()
