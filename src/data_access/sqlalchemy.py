@@ -31,11 +31,9 @@ class SQLAlchemyAsyncDataAccess(
         return self._dao.from_model(model)
 
     async def get(self, pk: UUID) -> BaseUUIDModel:
-        result = (
-            await self._async_session.scalars(
-                select(self._dao).where(self._dao.id == pk)
-            )
-        ).first()
+        result = await self._async_session.scalar(
+            select(self._dao).where(self._dao.id == pk).limit(1)
+        )
         if not result:
             raise DoesNotExist(
                 f"{self.__class__.__name__} could not find {self._model.__name__} with given PK - {pk}"

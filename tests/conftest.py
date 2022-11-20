@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio.session import AsyncSession
 
 from main import app
 from src.adapters.orm import mapper_registry
-from src.database.connection import get_db
+from src.dependencies.database import get_db
 from src.settings import Settings
 
 
