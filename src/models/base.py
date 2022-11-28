@@ -7,4 +7,4 @@ class BaseUUIDModel(BaseModel):
     id: UUID = Field(default_factory=uuid4)
 
     class Config:
-        from_orm = True
+        orm_mode = True

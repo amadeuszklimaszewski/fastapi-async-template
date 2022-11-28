@@ -1,3 +1,5 @@
+import datetime
+
 from src.data_access import UserAsyncDataAccess
 from src.models import User
 from src.schemas import RegisterSchema
@@ -14,13 +16,13 @@ class UserService:
         return pwd_context.hash(password)
 
     async def register_user(self, schema: RegisterSchema) -> User:
-        user_data = schema.dict(exclude="repeat_password")
+        user_data = schema.dict(exclude={"repeat_password"})
 
         if await self.data_access.get_many(email=user_data["email"]):
             raise AlreadyExists("User with given email already exists")
 
         user_data["password"] = self._hash_password(user_data["password"])
-        new_user = User(**schema.dict())
+        new_user = User(**user_data)
 
         return await self.data_access.persist(new_user)
 

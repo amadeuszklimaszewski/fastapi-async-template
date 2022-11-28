@@ -4,15 +4,15 @@ from typing import Type
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
 
-from src.data_access import AbstractAsyncDataAccess
+from src.data_access.abstract import AbstractAsyncDataAccess
 from src.data_access.exceptions import DoesNotExist
 from src.models import BaseUUIDModel
 
 
 class SQLAlchemyDAO:
-    id = mapped_column(uuid.UUID(as_uuid=True), default=uuid.uuid4, primary_key=True)
+    id: Mapped[uuid.UUID] = mapped_column(default=uuid.uuid4, primary_key=True)
 
     @classmethod
     def from_model(cls, model: BaseUUIDModel) -> "SQLAlchemyDAO":
@@ -50,7 +50,7 @@ class SQLAlchemyAsyncDataAccess(
 
     async def get_many(self, **kwargs) -> list[BaseUUIDModel]:
         args = [getattr(self._dao, k) == v for k, v in kwargs.items()]
-        stmt = select(self._model).where(True, *args)
+        stmt = select(self._dao).where(True, *args)
         result = (await self._async_session.scalars(stmt)).all()
         return [self._model.from_orm(dao) for dao in result]
 
