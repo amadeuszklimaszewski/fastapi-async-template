@@ -1,18 +1,26 @@
+import uuid
 from abc import ABC, abstractmethod
 from typing import Type
-from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import mapped_column
 
-from src.adapters.orm import SQLAlchemyDAO
 from src.data_access import AbstractAsyncDataAccess
 from src.data_access.exceptions import DoesNotExist
 from src.models import BaseUUIDModel
 
 
+class SQLAlchemyDAO:
+    id = mapped_column(uuid.UUID(as_uuid=True), default=uuid.uuid4, primary_key=True)
+
+    @classmethod
+    def from_model(cls, model: BaseUUIDModel) -> "SQLAlchemyDAO":
+        return cls(**model.dict())
+
+
 class SQLAlchemyAsyncDataAccess(
-    AbstractAsyncDataAccess[UUID, SQLAlchemyDAO, BaseUUIDModel], ABC
+    AbstractAsyncDataAccess[uuid.UUID, SQLAlchemyDAO, BaseUUIDModel], ABC
 ):
     def __init__(self, async_session: AsyncSession) -> None:
         self._async_session = async_session
@@ -30,7 +38,7 @@ class SQLAlchemyAsyncDataAccess(
     def _map_to_dao(self, model: BaseUUIDModel) -> SQLAlchemyDAO:
         return self._dao.from_model(model)
 
-    async def get(self, pk: UUID) -> BaseUUIDModel:
+    async def get(self, pk: uuid.UUID) -> BaseUUIDModel:
         result = await self._async_session.scalar(
             select(self._dao).where(self._dao.id == pk).limit(1)
         )

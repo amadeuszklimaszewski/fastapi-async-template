@@ -1,3 +1,1 @@
-from src.data_access.abstract import AbstractAsyncDataAccess
-from src.data_access.sqlalchemy import SQLAlchemyAsyncDataAccess
 from src.data_access.user import UserAsyncDataAccess

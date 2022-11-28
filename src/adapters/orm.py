@@ -1,32 +1,20 @@
-import uuid
-from datetime import datetime
+from sqlalchemy import MetaData
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.ext.asyncio.session import AsyncSession
+from sqlalchemy.orm import registry, sessionmaker
 
-from sqlalchemy import MetaData, func
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import Mapped, mapped_column, registry
-from sqlalchemy.sql import func
-
-from src.models import BaseUUIDModel
+from src.settings import settings
 
 metadata = MetaData()
 mapper_registry = registry(metadata=metadata)
 
 
-class SQLAlchemyDAO:
-    id = mapped_column(UUID(as_uuid=True), default=uuid.uuid4, primary_key=True)
+engine = create_async_engine(settings.postgres_url, echo=False)
 
-    @classmethod
-    def from_model(cls, model: BaseUUIDModel) -> "SQLAlchemyDAO":
-        return cls(**model.dict())
-
-
-@mapper_registry.mapped
-class UserDAO(SQLAlchemyDAO):
-    __tablename__ = "users"
-
-    email: Mapped[str] = mapped_column(unique=True)
-    password: Mapped[str]
-    created_at: Mapped[datetime] = mapped_column(server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(
-        server_default=func.now(), onupdate=func.now()
-    )
+async_session = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+)
