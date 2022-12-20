@@ -1,10 +1,11 @@
 from datetime import datetime
 
-from sqlalchemy import func
+from sqlalchemy import func, select
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import func
 
 from src.adapters.orm import mapper_registry
+from src.data_access.exceptions import DoesNotExist
 from src.data_access.sqlalchemy import SQLAlchemyAsyncDataAccess, SQLAlchemyDAO
 from src.models import User
 
@@ -29,3 +30,13 @@ class UserAsyncDataAccess(SQLAlchemyAsyncDataAccess):
     @property
     def _model(self) -> User:
         return User
+
+    async def get_by_email(self, email: str) -> User:
+        result = await self._async_session.scalar(
+            select(self._dao).where(self._dao.email == email).limit(1)
+        )
+        if not result:
+            raise DoesNotExist(
+                f"{self.__class__.__name__} could not find {self._model.__name__} with given email - {email}"
+            )
+        return self._model.from_orm(result)

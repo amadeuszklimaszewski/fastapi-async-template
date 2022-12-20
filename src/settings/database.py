@@ -18,3 +18,7 @@ class DatabaseSettings(BaseSettings):
             f"{driver}://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@"
             f"{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{database_name}"
         )
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
