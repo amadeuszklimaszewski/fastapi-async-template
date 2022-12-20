@@ -3,10 +3,10 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from main import app
 from src.data_access import UserAsyncDataAccess
+from src.data_access.exceptions import DoesNotExist
 from src.dependencies.user import get_user_data_access
 from src.models import Token
 from src.services.auth import authenticate_user, create_access_token
-from src.data_access.exceptions import DoesNotExist
 from src.services.exceptions import InvalidCredentials
 
 

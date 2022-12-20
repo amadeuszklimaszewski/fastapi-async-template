@@ -10,7 +10,7 @@ async def register_user(
 ) -> User:
     user_data = schema.dict(exclude={"repeat_password"})
 
-    if await data_access.get_many(email=user_data["email"]):
+    if await data_access.get_by_email(user_data["email"]):
         raise AlreadyExists("User with given email already exists")
 
     user_data["password"] = get_password_hash(user_data["password"])

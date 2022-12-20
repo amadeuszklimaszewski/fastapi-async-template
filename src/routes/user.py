@@ -1,11 +1,14 @@
 from uuid import UUID
 
-from fastapi import Depends, status
+from fastapi import Depends, HTTPException, status
 from fastapi.routing import APIRouter
 
 from src.data_access import UserAsyncDataAccess
 from src.dependencies.user import get_user_data_access
-from src.schemas import IDOutputSchema, RegisterSchema, UserOutputSchema
+from src.models import Token
+from src.schemas import RegisterSchema, UserOutputSchema
+from src.services.auth import create_access_token
+from src.services.exceptions import AlreadyExists
 from src.services.user import register_user
 
 user_router = APIRouter(prefix="/users")
@@ -15,14 +18,24 @@ user_router = APIRouter(prefix="/users")
     "/register/",
     tags=["users"],
     status_code=status.HTTP_201_CREATED,
-    response_model=IDOutputSchema,
+    response_model=Token,
 )
 async def register_new_user(
     register_schema: RegisterSchema,
     data_access: UserAsyncDataAccess = Depends(get_user_data_access),
 ):
-    user = await register_user(data_access, register_schema)
-    return user
+    try:
+        user = await register_user(data_access, register_schema)
+    except AlreadyExists:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="User with given email already exists",
+        )
+    else:
+        token_data = {"id": user.id}
+        access_token = create_access_token(token_data)
+
+        return {"access_token": access_token, "token_type": "bearer"}
 
 
 @user_router.get(
