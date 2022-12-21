@@ -115,3 +115,4 @@ pyvenv.cfg
 .idea
 db.sqlite3
 .vscode/
+.pytest_cache/
