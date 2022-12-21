@@ -1,7 +1,6 @@
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, APIRouter
 from fastapi.security import OAuth2PasswordRequestForm
 
-from main import app
 from src.data_access import UserAsyncDataAccess
 from src.data_access.exceptions import DoesNotExist
 from src.dependencies.user import get_user_data_access
@@ -9,8 +8,10 @@ from src.models import Token
 from src.services.auth import authenticate_user, create_access_token
 from src.services.exceptions import InvalidCredentials
 
+auth_router = APIRouter(prefix="/auth")
 
-@app.post("/login/", response_model=Token)
+
+@auth_router.post("/login/", response_model=Token)
 async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
     data_access: UserAsyncDataAccess = Depends(get_user_data_access),
@@ -26,6 +27,6 @@ async def login_for_access_token(
             headers={"WWW-Authenticate": "Bearer"},
         )
     else:
-        token_data = {"id": user.id}
+        token_data = {"id": str(user.id)}
         access_token = create_access_token(token_data)
         return {"access_token": access_token, "token_type": "bearer"}

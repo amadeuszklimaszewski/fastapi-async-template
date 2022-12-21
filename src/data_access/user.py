@@ -31,12 +31,10 @@ class UserAsyncDataAccess(SQLAlchemyAsyncDataAccess):
     def _model(self) -> User:
         return User
 
-    async def get_by_email(self, email: str) -> User:
+    async def get_by_email(self, email: str) -> User | None:
         result = await self._async_session.scalar(
             select(self._dao).where(self._dao.email == email).limit(1)
         )
         if not result:
-            raise DoesNotExist(
-                f"{self.__class__.__name__} could not find {self._model.__name__} with given email - {email}"
-            )
+            return None
         return self._model.from_orm(result)

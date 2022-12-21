@@ -14,7 +14,7 @@ async def authenticate_user(
     data_access: UserAsyncDataAccess, email: str, password: str
 ) -> User:
     user = await data_access.get_by_email(email)
-    if not verify_password(password, user.password):
+    if not user or not verify_password(password, user.password):
         raise InvalidCredentials("Invalid credentials provided")
     return user
 

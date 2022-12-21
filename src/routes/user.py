@@ -32,7 +32,7 @@ async def register_new_user(
             detail="User with given email already exists",
         )
     else:
-        token_data = {"id": user.id}
+        token_data = {"id": str(user.id)}
         access_token = create_access_token(token_data)
 
         return {"access_token": access_token, "token_type": "bearer"}
