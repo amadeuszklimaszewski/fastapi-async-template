@@ -2,8 +2,6 @@ import pytest
 from fastapi import status
 from httpx import AsyncClient, Response
 
-from src.models import User
-
 
 @pytest.fixture
 def user_register_data() -> dict[str, str]:

@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException, status, APIRouter
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 
 from src.data_access import UserAsyncDataAccess
