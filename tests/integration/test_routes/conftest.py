@@ -8,6 +8,15 @@ from src.utils import pwd_context
 
 
 @pytest.fixture
+def user_login_data() -> dict[str, str]:
+    return {
+        "grant_type": "password",
+        "username": "user@example.com",
+        "password": "password123",
+    }
+
+
+@pytest.fixture
 def user_data_access(session: AsyncSession) -> UserAsyncDataAccess:
     return UserAsyncDataAccess(session)
 

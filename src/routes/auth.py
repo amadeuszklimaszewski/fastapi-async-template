@@ -23,7 +23,7 @@ async def login_for_access_token(
     except (DoesNotExist, InvalidCredentials):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Authorization failed. Please check your credentials and try again.",
+            detail="Incorrect email or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
     else:

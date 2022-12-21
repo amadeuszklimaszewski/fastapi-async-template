@@ -28,7 +28,7 @@ async def register_new_user(
         user = await register_user(data_access, register_schema)
     except AlreadyExists:
         raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
+            status_code=status.HTTP_400_BAD_REQUEST,
             detail="User with given email already exists",
         )
     else:
