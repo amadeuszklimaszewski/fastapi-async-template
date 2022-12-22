@@ -42,3 +42,33 @@ async def test_user_cannot_register_with_existing_email(
     assert len(response_body) == 1
     assert "detail" in response_body
     assert response_body["detail"] == "User with given email already exists"
+
+
+@pytest.mark.asyncio
+async def test_get_users(
+    client: AsyncClient,
+    user_in_db: User,
+):
+    response: Response = await client.get("/users/")
+
+    assert response.status_code == status.HTTP_200_OK
+    response_body = response.json()
+    assert len(response_body) == 1
+    assert "email" in response_body[0]
+    assert response_body[0]["email"] == user_in_db.email
+    assert response_body[0]["id"] == str(user_in_db.id)
+
+
+@pytest.mark.asyncio
+async def test_get_user_by_id(
+    client: AsyncClient,
+    user_in_db: User,
+):
+    response: Response = await client.get(f"/users/{user_in_db.id}/")
+
+    assert response.status_code == status.HTTP_200_OK
+    response_body = response.json()
+    assert len(response_body) == 2
+    assert "email" in response_body
+    assert response_body["email"] == user_in_db.email
+    assert response_body["id"] == str(user_in_db.id)

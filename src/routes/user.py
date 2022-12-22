@@ -48,7 +48,7 @@ async def get_users(
     data_access: UserAsyncDataAccess = Depends(get_user_data_access),
 ):
     users = await data_access.get_many()
-    return [UserOutputSchema.from_orm(user) for user in users]
+    return users
 
 
 @user_router.get(
@@ -62,4 +62,4 @@ async def get_user(
     data_access: UserAsyncDataAccess = Depends(get_user_data_access),
 ):
     user = await data_access.get(pk=user_id)
-    return UserOutputSchema.from_orm(user)
+    return user

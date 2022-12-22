@@ -1,4 +1,7 @@
 [run]
+concurrency =
+  greenlet
+  thread
 omit =
     */.local/*
     /usr/*
