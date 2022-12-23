@@ -1,11 +1,11 @@
 from datetime import datetime
+from typing import Type
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import func
 
 from src.adapters.orm import mapper_registry
-from src.data_access.exceptions import DoesNotExist
 from src.data_access.sqlalchemy import SQLAlchemyAsyncDataAccess, SQLAlchemyDAO
 from src.models import User
 
@@ -24,11 +24,11 @@ class UserDAO(SQLAlchemyDAO):
 
 class UserAsyncDataAccess(SQLAlchemyAsyncDataAccess):
     @property
-    def _dao(self) -> UserDAO:
+    def _dao(self) -> Type[UserDAO]:
         return UserDAO
 
     @property
-    def _model(self) -> User:
+    def _model(self) -> Type[User]:
         return User
 
     async def get_by_email(self, email: str) -> User | None:

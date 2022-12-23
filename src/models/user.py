@@ -1,4 +1,3 @@
-import datetime
 
 from src.models import BaseUUIDModel
 

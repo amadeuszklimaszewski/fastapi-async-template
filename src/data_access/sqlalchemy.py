@@ -50,7 +50,7 @@ class SQLAlchemyAsyncDataAccess(
 
     async def get_many(self, **kwargs) -> list[BaseUUIDModel]:
         args = [getattr(self._dao, k) == v for k, v in kwargs.items()]
-        stmt = select(self._dao).where(True, *args)
+        stmt = select(self._dao).where(*args)
         result = (await self._async_session.scalars(stmt)).all()
         return [self._model.from_orm(dao) for dao in result]
 

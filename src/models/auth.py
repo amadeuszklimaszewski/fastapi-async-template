@@ -9,5 +9,5 @@ class Token(BaseModel):
 
 
 class AccessTokenData(BaseModel):
-    id: str
+    id: uuid.UUID
     exp: int
